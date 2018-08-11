@@ -1,0 +1,74 @@
+* {
+    font-family: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+}
+
+* + * {
+    margin-top: 1.5em;
+}
+
+body, br, dt, dd, th, td, option {
+    margin-top: 0;
+}
+
+html {
+    background-color: lightgray;
+    font-family: "Adobe Caslon Pro", "Hoefler Text", Garamond, Times, "Times New Roman", serif;
+    font-feature-settings: "liga" on, "dlig" on, "hlig" on, "zero" on, "lnum" off, "onum" on, "kern" on, "ordn" on;
+    font-kerning: normal;
+    font-variant-ligatures: common-ligatures discretionary-ligatures historical-ligatures;
+    font-variant-numeric: oldstyle-nums ordinal slashed-zero;
+    font-size: 20px;
+    line-height: 1.4em;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    max-width: 40em;
+}
+
+div.status {
+    border: 1px solid black;
+    padding: 1em;
+}
+
+div.status img {
+    max-width: 100%;
+}
+
+div.status img.avatar {
+    max-width: 48px;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
