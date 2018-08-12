@@ -11,4 +11,16 @@
 |
 */
 
-Route::get('/', 'TimelineController@show_timeline');
+Route::get('/', function() {
+	return redirect()->route('public');
+});
+
+Route::get('/timeline/public', 'TimelineController@public_timeline')
+	->name('public');
+
+Route::get('/timeline/friends', 'TimelineController@home_timeline')
+	->name('friends');
+
+Route::get('/login', 'LoginController@login');
+
+Route::get('/callback', 'LoginController@callback');
