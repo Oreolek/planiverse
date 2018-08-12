@@ -11,21 +11,8 @@
     </head>
     <body>
         @foreach ($statuses as $status)
-            <div class="status">
-                <div class="tooltip">
-                    <a href="{{ $status['account']['url'] }}">
-                        <img src="{{ $status['account']['avatar'] }}" alt="{{ $status['account']['acct'] }}" class="avatar" />
-                        {{ $status['account']['display_name'] }}
-                    </a>
-                    <span class="tooltiptext">{{ $status['account']['acct'] }}</span>
-                </div>
-                <p>{!! $status['content'] !!}</p>
-                @foreach ($status['media_attachments'] as $attachment)
-                    @if ($attachment['type'] === 'image')
-                        <p><img src="{{ $attachment['url'] }}" alt="{{ $attachment['description'] }}" /></p>
-                    @endif
-                @endforeach
-            </div>
+            @component('status', ['status' => $status])
+            @endcomponent
         @endforeach
     </body>
 </html>
