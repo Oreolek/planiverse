@@ -17,6 +17,11 @@ class TimelineController extends Controller
 
     public function home_timeline()
     {
+        if (!session()->has('user'))
+        {
+            return redirect()->route('login');
+        }
+
         $user = session('user');
         $timeline = Mastodon::domain(env('MASTODON_DOMAIN'))
             ->token($user->token)

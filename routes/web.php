@@ -21,6 +21,7 @@ Route::get('/timeline/public', 'TimelineController@public_timeline')
 Route::get('/timeline/friends', 'TimelineController@home_timeline')
 	->name('friends');
 
-Route::get('/login', 'LoginController@login');
+Route::get('/login', 'LoginController@login')
+	->name('login');
 
 Route::get('/callback', 'LoginController@callback');
