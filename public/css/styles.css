@@ -54,6 +54,11 @@ div.actions span {
     margin-right: 1em;
 }
 
+time {
+    font-size: smaller;
+    margin-left: 1em;
+}
+
 /* Tooltip container */
 .tooltip {
     position: relative;

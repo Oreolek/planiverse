@@ -10,6 +10,15 @@
         </a>
         <span class="tooltiptext">{{ $status['account']['acct'] }}</span>
     </div>
+    <time datetime="{{ $status['created_at'] }}">
+        @php
+            $created_at = new Carbon\Carbon($status['created_at']);
+        @endphp
+        @if (env('SHOW_BEATS') === true)
+            {{ '@' . $created_at->format('B') }} |
+        @endif
+        {{ $created_at->diffForHumans(null, false, true) }}
+    </time>
     @if ($status['reblog'] === null)
         <p>{!! $status['content'] !!}</p>
         @foreach ($status['media_attachments'] as $attachment)
