@@ -68,6 +68,6 @@ class LoginController extends Controller
         $user = Socialite::driver('mastodon')->user();
         session(['user' => $user]);
 
-        return redirect()->route('friends');
+        return redirect()->route('home');
     }
 }

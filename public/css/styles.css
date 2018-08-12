@@ -46,6 +46,14 @@ div.status img.avatar {
     max-width: 48px;
 }
 
+.favourited {
+    color: gold;
+}
+
+div.actions span {
+    margin-right: 1em;
+}
+
 /* Tooltip container */
 .tooltip {
     position: relative;

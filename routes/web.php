@@ -12,14 +12,21 @@
 */
 
 Route::get('/', function() {
-	return redirect()->route('public');
+	if (!session()->has('user'))
+    {
+        return redirect()->route('public');
+    }
+	else
+	{
+		return redirect()->route('home');
+	}
 });
 
 Route::get('/timeline/public', 'TimelineController@public_timeline')
 	->name('public');
 
-Route::get('/timeline/friends', 'TimelineController@home_timeline')
-	->name('friends');
+Route::get('/timeline/home', 'TimelineController@home_timeline')
+	->name('home');
 
 Route::get('/login', 'LoginController@login')
 	->name('login');

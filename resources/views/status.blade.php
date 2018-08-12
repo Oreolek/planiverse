@@ -30,4 +30,26 @@
         @component('status', ['status' => $status['reblog']])
         @endcomponent
     @endif
+
+    <div class="actions">
+        <!-- Reply -->
+        <span>
+            &#8629;
+        </span>
+
+        <!-- Reblog -->
+        <span>
+            &#8644; {{ $status['reblogs_count'] }}
+        </span>
+
+        <!-- Favourite -->
+        <span>
+            @if ($status['favourited'] === true)
+                <span class="favourited">&#9733;</span>
+            @else
+                &#9734;
+            @endif
+            {{ $status['favourites_count'] }}
+        </span>
+    </div>
 </div>
