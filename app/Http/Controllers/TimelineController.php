@@ -12,8 +12,6 @@ class TimelineController extends Controller
         $timeline = Mastodon::domain(env('MASTODON_DOMAIN'))
             ->get('/timelines/public', ['local' => true]);
 
-        $timeline = $this->embed_images($timeline);
-
         return view('timeline', ['statuses' => $timeline]);
     }
 
@@ -24,24 +22,6 @@ class TimelineController extends Controller
             ->token($user->token)
             ->get('/timelines/home');
 
-        $timeline = $this->embed_images($timeline);
-
         return view('timeline', ['statuses' => $timeline]);
-    }
-
-    private function embed_images($timeline)
-    {
-        foreach ($timeline as $index => $status)
-        {
-            # Search for links to images and replace the inner HTML
-            # with an img tag of the image itself.
-            $timeline[$index]['content'] = preg_replace(
-                '/<a href="([^>]+)\.(png|jpg|jpeg|gif)">([^<]+)<\/a>/',
-                '<a href="${1}.${2}"><img src="${1}.${2}" alt="${3}" /></a>',
-                $status['content']
-            );
-        }
-
-        return $timeline;
     }
 }

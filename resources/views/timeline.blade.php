@@ -20,6 +20,11 @@
                     <span class="tooltiptext">{{ $status['account']['acct'] }}</span>
                 </div>
                 <p>{!! $status['content'] !!}</p>
+                @foreach ($status['media_attachments'] as $attachment)
+                    @if ($attachment['type'] === 'image')
+                        <p><img src="{{ $attachment['url'] }}" alt="{{ $attachment['description'] }}" /></p>
+                    @endif
+                @endforeach
             </div>
         @endforeach
     </body>
