@@ -59,6 +59,12 @@ time {
     margin-left: 1em;
 }
 
+input, textarea {
+    box-sizing: border-box;
+    padding: 0.5em;
+    width: 100%;
+}
+
 /* Tooltip container */
 .tooltip {
     position: relative;

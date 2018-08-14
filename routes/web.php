@@ -28,6 +28,8 @@ Route::get('/timeline/public', 'TimelineController@public_timeline')
 Route::get('/timeline/home', 'TimelineController@home_timeline')
 	->name('home');
 
+Route::post('/timeline/home', 'TimelineController@post_status');
+
 Route::get('/login', 'LoginController@login')
 	->name('login');
 

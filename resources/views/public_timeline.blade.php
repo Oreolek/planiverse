@@ -5,12 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ $mastodon_domain }} | {{ $timeline }}</title>
+        <title>{{ $mastodon_domain }} | Public Timeline</title>
 
         <link rel="stylesheet" href="/css/styles.css" />
     </head>
     <body>
-        <h1>{{ $mastodon_domain }} | {{ $timeline }}</h1>
+        <h1>{{ $mastodon_domain }} | Public Timeline</h1>
 
         @foreach ($statuses as $status)
             @component('status', ['status' => $status])

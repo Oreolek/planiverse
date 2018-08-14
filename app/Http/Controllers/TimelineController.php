@@ -20,23 +20,23 @@ class TimelineController extends Controller
         $vars = [
             'statuses' => $timeline,
             'mastodon_domain' => explode('//', env('MASTODON_DOMAIN'))[1],
-            'timeline' => 'Public Timeline',
             'links' => $this->compile_links('public')
         ];
 
-        return view('timeline', $vars);
+        return view('public_timeline', $vars);
     }
 
     public function home_timeline(Request $request)
     {
+        # Check the user is logged in.
         if (!session()->has('user'))
         {
             return redirect()->route('login');
         }
+        $user = session('user');
 
         $params = $this->compile_params($request);
 
-        $user = session('user');
         $timeline = Mastodon::domain(env('MASTODON_DOMAIN'))
             ->token($user->token)
             ->get('/timelines/home', $params);
@@ -44,11 +44,53 @@ class TimelineController extends Controller
         $vars = [
             'statuses' => $timeline,
             'mastodon_domain' => explode('//', env('MASTODON_DOMAIN'))[1],
-            'timeline' => 'Timeline',
             'links' => $this->compile_links('home')
         ];
 
-        return view('timeline', $vars);
+        return view('home_timeline', $vars);
+    }
+
+    public function post_status(Request $request)
+    {
+        # Check the user is logged in.
+        if (!session()->has('user'))
+        {
+            return redirect()->route('login');
+        }
+        $user = session('user');
+
+        # Verify we have an actual status to post.
+        if (!$request->has('status'))
+        {
+            abort(400);
+        }
+
+        $params = [
+            'status' => $request->status
+        ];
+
+        $inputs = [
+            'in_reply_to_id',
+            'media_ids',
+            'sensitive',
+            'spoiler_text',
+            'visibility',
+            'language'
+        ];
+
+        foreach ($inputs as $input)
+        {
+            if ($request->has($input))
+            {
+                $params[$input] = $request->input($input);
+            }
+        }
+
+        $new_status = Mastodon::domain(env('MASTODON_DOMAIN'))
+            ->token($user->token)
+            ->post('/statuses', $params);
+
+        return redirect()->route('home');
     }
 
     private function compile_links(string $route)
