@@ -43,7 +43,7 @@
     <div class="actions">
         <!-- Reply -->
         <span>
-            &#8629;
+            <a href="/status/{{ $status['id'] }}">&#8629;</a>
         </span>
 
         <!-- Reblog -->

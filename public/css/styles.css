@@ -54,6 +54,10 @@ div.actions span {
     margin-right: 1em;
 }
 
+div.actions a {
+    text-decoration: none;
+}
+
 time {
     font-size: smaller;
     margin-left: 1em;

@@ -30,6 +30,8 @@ Route::get('/timeline/home', 'TimelineController@home_timeline')
 
 Route::post('/timeline/home', 'TimelineController@post_status');
 
+Route::get('/status/{status_id}', 'StatusController@show_status');
+
 Route::get('/login', 'LoginController@login')
 	->name('login');
 
