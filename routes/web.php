@@ -30,7 +30,12 @@ Route::get('/timeline/home', 'TimelineController@home_timeline')
 
 Route::post('/timeline/home', 'TimelineController@post_status');
 
-Route::get('/status/{status_id}', 'StatusController@show_status');
+Route::get('/status/{status_id}', 'StatusController@show_status')
+	->name('status');
+
+Route::get('/status/{status_id}/favourite', 'StatusController@favourite_status');
+
+Route::get('/status/{status_id}/unfavourite', 'StatusController@unfavourite_status');
 
 Route::get('/login', 'LoginController@login')
 	->name('login');
