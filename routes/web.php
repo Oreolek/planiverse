@@ -26,16 +26,20 @@ Route::get('/timeline/public', 'TimelineController@public_timeline')
 	->name('public');
 
 Route::get('/timeline/home', 'TimelineController@home_timeline')
-	->name('home');
+	->name('home')
+	->middleware('authorize');
 
-Route::post('/timeline/home', 'TimelineController@post_status');
+Route::post('/timeline/home', 'TimelineController@post_status')
+	->middleware('authorize');
 
 Route::get('/status/{status_id}', 'StatusController@show_status')
 	->name('status');
 
-Route::get('/status/{status_id}/favourite', 'StatusController@favourite_status');
+Route::get('/status/{status_id}/favourite', 'StatusController@favourite_status')
+	->middleware('authorize');
 
-Route::get('/status/{status_id}/unfavourite', 'StatusController@unfavourite_status');
+Route::get('/status/{status_id}/unfavourite', 'StatusController@unfavourite_status')
+	->middleware('authorize');
 
 Route::get('/login', 'LoginController@login')
 	->name('login');

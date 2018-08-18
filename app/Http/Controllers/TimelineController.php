@@ -28,11 +28,6 @@ class TimelineController extends Controller
 
     public function home_timeline(Request $request)
     {
-        # Check the user is logged in.
-        if (!session()->has('user'))
-        {
-            return redirect()->route('login');
-        }
         $user = session('user');
 
         $params = $this->compile_params($request);
@@ -52,11 +47,6 @@ class TimelineController extends Controller
 
     public function post_status(Request $request)
     {
-        # Check the user is logged in.
-        if (!session()->has('user'))
-        {
-            return redirect()->route('login');
-        }
         $user = session('user');
 
         # Verify we have an actual status to post.

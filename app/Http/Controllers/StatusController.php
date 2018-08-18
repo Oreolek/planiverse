@@ -37,11 +37,6 @@ class StatusController extends Controller
 
     public function favourite_status(string $status_id)
     {
-        # Check the user is logged in.
-        if (!session()->has('user'))
-        {
-            return redirect()->route('login');
-        }
         $user = session('user');
 
         $status = Mastodon::domain(env('MASTODON_DOMAIN'))
@@ -55,11 +50,6 @@ class StatusController extends Controller
 
     public function unfavourite_status(string $status_id)
     {
-        # Check the user is logged in.
-        if (!session()->has('user'))
-        {
-            return redirect()->route('login');
-        }
         $user = session('user');
 
         $status = Mastodon::domain(env('MASTODON_DOMAIN'))
