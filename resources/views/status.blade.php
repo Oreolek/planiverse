@@ -38,13 +38,22 @@
 
         <!-- Reblog -->
         <span>
-            &#8644; {{ $status['reblogs_count'] }}
+            @if ($status['reblogged'])
+                <span class="reblogged">
+                    <a href="/status/{{ $status['id'] }}?action=unreblog">&#8644;</a>
+                </span>
+            @else
+                <a href="/status/{{ $status['id'] }}?action=reblog">&#8644;</a>
+            @endif
+            {{ $status['reblogs_count'] }}
         </span>
 
         <!-- Favourite -->
         <span>
             @if ($status['favourited'])
-                <span class="favourited"><a href="/status/{{ $status['id'] }}?action=unfavourite">&#9733;</a></span>
+                <span class="favourited">
+                    <a href="/status/{{ $status['id'] }}?action=unfavourite">&#9733;</a>
+                </span>
             @else
                 <a href="/status/{{ $status['id'] }}?action=favourite">&#9734;</a>
             @endif

@@ -13,7 +13,7 @@ class StatusController extends Controller
     {
         // The user has a session and may be here to favourite/unfavourite
         // a status.
-        if (session()->has('user'))
+        if (session()->has('user') && $request->has('action'))
         {
             $user = session('user');
             if ($request->action === 'favourite')
@@ -27,6 +27,18 @@ class StatusController extends Controller
                 $status = Mastodon::domain(env('MASTODON_DOMAIN'))
                     ->token($user->token)
                     ->post('/statuses/' . $status_id . '/unfavourite');
+            }
+            elseif ($request->action === 'reblog')
+            {
+                $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+                    ->token($user->token)
+                    ->post('/statuses/' . $status_id . '/reblog');
+            }
+            elseif ($request->action === 'unreblog')
+            {
+                $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+                    ->token($user->token)
+                    ->post('/statuses/' . $status_id . '/unreblog');
             }
         }
         

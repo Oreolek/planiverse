@@ -12,6 +12,9 @@
     <body>
         <h1>{{ $mastodon_domain }} | Status</h1>
 
+        @component('navigation')
+        @endcomponent
+
         @component('status', ['status' => $status])
         @endcomponent
 

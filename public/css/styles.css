@@ -67,6 +67,10 @@ div.actions span.favourited a {
     color: goldenrod;
 }
 
+div.actions span.reblogged a {
+    color: green;
+}
+
 time {
     font-size: smaller;
     margin-left: 1em;
