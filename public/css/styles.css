@@ -50,7 +50,7 @@ div.status img.avatar {
     color: goldenrod;
 }
 
-div.actions span {
+div.actions > span {
     margin-right: 1em;
 }
 

@@ -54,9 +54,9 @@
         <!-- Favourite -->
         <span>
             @if ($status['favourited'])
-                <span class="favourited"><a href="/status/{{ $status['id'] }}/unfavourite">&#9733;</a></span>
+                <span class="favourited"><a href="/status/{{ $status['id'] }}?action=unfavourite">&#9733;</a></span>
             @else
-                <a href="/status/{{ $status['id'] }}/favourite">&#9734;</a>
+                <a href="/status/{{ $status['id'] }}?action=favourite">&#9734;</a>
             @endif
             {{ $status['favourites_count'] }}
         </span>

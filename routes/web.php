@@ -35,12 +35,6 @@ Route::post('/timeline/home', 'TimelineController@post_status')
 Route::get('/status/{status_id}', 'StatusController@show_status')
 	->name('status');
 
-Route::get('/status/{status_id}/favourite', 'StatusController@favourite_status')
-	->middleware('authorize');
-
-Route::get('/status/{status_id}/unfavourite', 'StatusController@unfavourite_status')
-	->middleware('authorize');
-
 Route::get('/login', 'LoginController@login')
 	->name('login');
 

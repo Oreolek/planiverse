@@ -9,19 +9,31 @@ use Illuminate\Http\Request;
 
 class StatusController extends Controller
 {
-    public function show_status(string $status_id)
+    public function show_status(Request $request, string $status_id)
     {
-        if (session()->has('return_status'))
+        // The user has a session and may be here to favourite/unfavourite
+        // a status.
+        if (session()->has('user'))
         {
-            // This route can be called as a redirect after favouriting, etc.,
-            // in which case the status returned by the API will have been stored
-            // in the user's session.
-            $status = session('return_status');
-            session()->forget('return_status');
+            $user = session('user');
+            if ($request->action === 'favourite')
+            {
+                $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+                    ->token($user->token)
+                    ->post('/statuses/' . $status_id . '/favourite');
+            }
+            elseif ($request->action === 'unfavourite')
+            {
+                $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+                    ->token($user->token)
+                    ->post('/statuses/' . $status_id . '/unfavourite');
+            }
         }
-        else
+        
+        // If the status hasn't been returned from performing an action on it,
+        // we need to query for it.
+        if (!isset($session))
         {
-            // If the status isn't in the session, we need to query for it.
             $status = Mastodon::domain(env('MASTODON_DOMAIN'))
                 ->get('/statuses/' . $status_id);
         }
@@ -33,31 +45,5 @@ class StatusController extends Controller
         ];
 
         return view('show_status', $vars);
-    }
-
-    public function favourite_status(string $status_id)
-    {
-        $user = session('user');
-
-        $status = Mastodon::domain(env('MASTODON_DOMAIN'))
-            ->token($user->token)
-            ->post('/statuses/' . $status_id . '/favourite');
-
-        session(['return_status' => $status]);
-
-        return redirect()->route('status', ['status_id' => $status_id]);
-    }
-
-    public function unfavourite_status(string $status_id)
-    {
-        $user = session('user');
-
-        $status = Mastodon::domain(env('MASTODON_DOMAIN'))
-            ->token($user->token)
-            ->post('/statuses/' . $status_id . '/unfavourite');
-
-        session(['return_status' => $status]);
-
-        return redirect()->route('status', ['status_id' => $status_id]);
     }
 }
