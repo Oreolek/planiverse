@@ -16,9 +16,9 @@ body, br, dt, dd, th, td, option {
 html {
     background-color: lightgray;
     font-family: "Adobe Caslon Pro", "Hoefler Text", Garamond, Times, "Times New Roman", serif;
-    font-feature-settings: "liga" on, "dlig" on, "hlig" on, "zero" on, "lnum" off, "onum" on, "kern" on, "ordn" on;
+    font-feature-settings: "liga" on, "zero" on, "lnum" off, "onum" on, "kern" on, "ordn" on;
     font-kerning: normal;
-    font-variant-ligatures: common-ligatures discretionary-ligatures historical-ligatures;
+    font-variant-ligatures: common-ligatures;
     font-variant-numeric: oldstyle-nums ordinal slashed-zero;
     font-size: 20px;
     line-height: 1.4em;
