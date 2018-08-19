@@ -12,6 +12,9 @@
     <body>
         <h1>{{ $mastodon_domain }} | Timeline</h1>
 
+        @component('navigation')
+        @endcomponent
+
         <form method="post" action="/timeline/home">
             <input type="text" name="spoiler_text" placeholder="Spoiler/Warning" />
             <textarea rows="4" name="status" placeholder="Status" required autofocus></textarea>

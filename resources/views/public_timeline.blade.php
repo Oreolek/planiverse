@@ -12,6 +12,9 @@
     <body>
         <h1>{{ $mastodon_domain }} | Public Timeline</h1>
 
+        @component('navigation')
+        @endcomponent
+
         @foreach ($statuses as $status)
             @component('status', ['status' => $status])
             @endcomponent

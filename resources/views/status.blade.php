@@ -1,5 +1,5 @@
-<div class="status">
-    <div class="tooltip">
+<article>
+    <span title="{{ $status['account']['acct'] }}">
         <a href="{{ $status['account']['url'] }}">
             <img
                 src="{{ $status['account']['avatar'] }}"
@@ -8,8 +8,7 @@
             />
             {{ $status['account']['display_name'] }}
         </a>
-        <span class="tooltiptext">{{ $status['account']['acct'] }}</span>
-    </div>
+    </span>
     <time datetime="{{ $status['created_at'] }}">
         @php
             $created_at = new Carbon\Carbon($status['created_at']);
@@ -61,4 +60,4 @@
             {{ $status['favourites_count'] }}
         </span>
     </div>
-</div>
+</article>
