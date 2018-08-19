@@ -18,24 +18,15 @@
         @endif
         {{ $created_at->diffForHumans(null, false, true) }}
     </time>
-    @if ($status['reblog'] === null)
-        <p>{!! $status['content'] !!}</p>
-        @foreach ($status['media_attachments'] as $attachment)
-            @if ($attachment['type'] === 'image')
-                <p>
-                    <img
-                        src="{{
-                            $attachment['remote_url'] === null
-                                ? $attachment['url']
-                                : $attachment['remote_url']
-                            }}"
-                        alt="{{ $attachment['description'] }}"
-                    />
-                </p>
-            @endif
-        @endforeach
+    @if ($status['spoiler_text'] !== '')
+        <details>
+            <summary>{{ $status['spoiler_text'] }}</summary>
+
+            @component('status_content', ['status' => $status])
+            @endcomponent
+        </details>
     @else
-        @component('status', ['status' => $status['reblog']])
+        @component('status_content', ['status' => $status])
         @endcomponent
     @endif
 
