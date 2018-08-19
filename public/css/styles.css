@@ -33,6 +33,14 @@ body {
     max-width: 40em;
 }
 
+a:link {
+    color: #1456cc;
+}
+
+a:visited {
+    color: #de3d83;
+}
+
 div.status {
     border: 1px solid black;
     padding: 1em;
@@ -46,16 +54,17 @@ div.status img.avatar {
     max-width: 48px;
 }
 
-.favourited {
-    color: goldenrod;
-}
-
 div.actions > span {
     margin-right: 1em;
 }
 
 div.actions a {
+    color: black;
     text-decoration: none;
+}
+
+div.actions span.favourited a {
+    color: goldenrod;
 }
 
 time {
@@ -67,6 +76,18 @@ input, textarea {
     box-sizing: border-box;
     padding: 0.5em;
     width: 100%;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-top: 0;
 }
 
 /* Tooltip container */

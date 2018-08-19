@@ -17,12 +17,7 @@
             @endcomponent
         @endforeach
 
-        @if ($links['prev'] !== null)
-            <span><a href="{{ $links['prev'] }}">Previous</a></span>
-        @endif
-
-        @if ($links['next'] !== null)
-            <span><a href="{{ $links['next'] }}">Next</a></span>
-        @endif
+        @component('pagination', ['links' => $links])
+        @endcomponent
     </body>
 </html>
