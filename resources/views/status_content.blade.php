@@ -2,16 +2,20 @@
     <p>{!! $status['content'] !!}</p>
     @foreach ($status['media_attachments'] as $attachment)
         @if ($attachment['type'] === 'image')
-            <p>
-                <img
-                    src="{{
-                        $attachment['remote_url'] === null
-                            ? $attachment['url']
-                            : $attachment['remote_url']
-                        }}"
-                    alt="{{ $attachment['description'] }}"
-                />
-            </p>
+            <figure>
+                <a href="{{
+                    $attachment['remote_url'] === null
+                        ? $attachment['url']
+                        : $attachment['remote_url']
+                    }}"
+                    target="_blank"
+                >
+                    <img
+                        src="{{ $attachment['preview_url'] }}"
+                        alt="{{ $attachment['description'] }}"
+                    />
+                </a>
+            </figure>
         @endif
     @endforeach
 @else
