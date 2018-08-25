@@ -26,7 +26,7 @@
                     placeholder="Spoiler/Warning"
                     value="{{ $status['spoiler_text'] }}"
                 />
-                <textarea rows="4" name="status" placeholder="Reply" required autofocus>{{ $status['account']['acct'] }} @foreach ($status['mentions'] as $mention){{ $mention['acct'] }} @endforeach</textarea>
+                <textarea rows="4" name="status" placeholder="Reply" required autofocus>{{ '@' . $status['account']['acct'] }} @foreach ($status['mentions'] as $mention){{ '@' . $mention['acct'] }} @endforeach</textarea>
                 <input type="submit" value="Post" />
                 <input type="hidden" name="in_reply_to_id" value="{{ $status['id'] }}" />
                 {{ csrf_field() }}
