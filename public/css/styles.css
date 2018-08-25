@@ -46,7 +46,7 @@ article {
     padding: 1em;
 }
 
-article img {
+article figure img, article video {
     max-width: 100%;
 }
 
