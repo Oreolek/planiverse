@@ -16,6 +16,15 @@
                     />
                 </a>
             </figure>
+        @elseif ($attachment['type'] === 'video' || $attachment['type'] === 'gifv')
+            <video controls>
+                <source src="{{
+                    $attachment['remote_url'] === null
+                        ? $attachment['url']
+                        : $attachment['remote_url']
+                    }}"
+                />
+            </video>
         @endif
     @endforeach
 @else
