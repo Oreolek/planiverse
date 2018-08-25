@@ -21,7 +21,7 @@
         @if ($logged_in)
             <form method="post" action="/timeline/home">
                 <input type="text" name="spoiler_text" placeholder="Spoiler/Warning" />
-                <textarea rows="4" name="status" placeholder="Reply" required autofocus></textarea>
+                <textarea rows="4" name="status" placeholder="Reply" required autofocus>{{ $status['account']['acct'] }} @foreach ($status['mentions'] as $mention){{ $mention['acct'] }} @endforeach</textarea>
                 <input type="submit" value="Post" />
                 <input type="hidden" name="in_reply_to_id" value="{{ $status['id'] }}" />
                 {{ csrf_field() }}
