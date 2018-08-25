@@ -40,10 +40,10 @@
         <span>
             @if ($status['reblogged'])
                 <span class="reblogged">
-                    <a href="/status/{{ $status['id'] }}?action=unreblog">&#8644;</a>
+                    <a href="/status/{{ $status['id'] }}?action=unreblog">&#8634;</a>
                 </span>
             @else
-                <a href="/status/{{ $status['id'] }}?action=reblog">&#8644;</a>
+                <a href="/status/{{ $status['id'] }}?action=reblog">&#8634;</a>
             @endif
             {{ $status['reblogs_count'] }}
         </span>
