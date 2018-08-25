@@ -1,3 +1,4 @@
+<hr />
 <article>
     <span title="{{ $status['account']['acct'] }}">
         <a href="{{ $status['account']['url'] }}">
@@ -61,3 +62,4 @@
         </span>
     </div>
 </article>
+<hr />
