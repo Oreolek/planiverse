@@ -2,5 +2,6 @@
     <ul>
         <li><a href="/timeline/home">Timeline</a></li>
         <li><a href="/timeline/public">Public Timeline</a></li>
+        <li><a href="/notifications">Notifications</a></li>
     </ul>
 </nav>

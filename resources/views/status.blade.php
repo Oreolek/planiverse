@@ -1,24 +1,11 @@
 <hr />
 <article>
-    <span title="{{ $status['account']['acct'] }}">
-        <a href="{{ $status['account']['url'] }}">
-            <img
-                src="{{ $status['account']['avatar'] }}"
-                alt="{{ $status['account']['acct'] }}"
-                class="avatar"
-            />
-            {{ $status['account']['display_name'] }}
-        </a>
-    </span>
-    <time datetime="{{ $status['created_at'] }}">
-        @php
-            $created_at = new Carbon\Carbon($status['created_at']);
-        @endphp
-        @if (env('SHOW_BEATS') === true)
-            {{ '@' . $created_at->format('B') }} |
-        @endif
-        {{ $created_at->diffForHumans(null, false, true) }}
-    </time>
+    @component('account_time_info', [
+        'account' => $status['account'],
+        'created_at' => $status['created_at']
+    ])
+    @endcomponent
+
     @if ($status['spoiler_text'] !== '')
         <details>
             <summary>{{ $status['spoiler_text'] }}</summary>
