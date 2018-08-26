@@ -1,8 +1,9 @@
 <hr />
 <article>
-    @component('account_time_info', [
+    @component('event_info', [
         'account' => $status['account'],
-        'created_at' => $status['created_at']
+        'created_at' => $status['created_at'],
+        'type' => $status['in_reply_to_id'] === null ? null : 'reply'
     ])
     @endcomponent
 
@@ -19,13 +20,18 @@
     @endif
 
     <div class="actions">
+        <!-- Context -->
+        <span title="Expand thread">
+            <a href="/status/{{ $status['id'] }}/thread">&#10568;</a>
+        </span>
+
         <!-- Reply -->
-        <span>
+        <span title="Reply">
             <a href="/status/{{ $status['id'] }}">&#8629;</a>
         </span>
 
         <!-- Reblog -->
-        <span>
+        <span title="Reblog">
             @if ($status['reblogged'])
                 <span class="reblogged">
                     <a href="/status/{{ $status['id'] }}?action=unreblog">&#8634;</a>
@@ -37,7 +43,7 @@
         </span>
 
         <!-- Favourite -->
-        <span>
+        <span title="Favourite">
             @if ($status['favourited'])
                 <span class="favourited">
                     <a href="/status/{{ $status['id'] }}?action=unfavourite">&#9733;</a>

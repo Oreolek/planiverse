@@ -58,4 +58,21 @@ class StatusController extends Controller
 
         return view('show_status', $vars);
     }
+
+    public function context(Request $request, string $status_id)
+    {
+        $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+            ->get('/statuses/' . $status_id);
+
+        $context = Mastodon::domain(env('MASTODON_DOMAIN'))
+            ->get('/statuses/' . $status_id . '/context');
+
+        $vars = [
+            'status' => $status,
+            'context' => $context,
+            'mastodon_domain' => explode('//', env('MASTODON_DOMAIN'))[1]
+        ];
+
+        return view('context', $vars);
+    }
 }

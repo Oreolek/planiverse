@@ -35,6 +35,8 @@ Route::post('/timeline/home', 'TimelineController@post_status')
 Route::get('/status/{status_id}', 'StatusController@show_status')
 	->name('status');
 
+Route::get('/status/{status_id}/thread', 'StatusController@context');
+
 Route::get('/notifications', 'NotificationsController@get_notifications')
 	->name('notifications')
 	->middleware('authorize');
