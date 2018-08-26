@@ -19,7 +19,7 @@
         @endcomponent
 
         @if ($logged_in)
-            <form method="post" action="/timeline/home">
+            <form method="post" action="/status">
                 <input
                     type="text"
                     name="spoiler_text"

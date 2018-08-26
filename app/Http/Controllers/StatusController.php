@@ -4,48 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Mastodon;
-use GuzzleHttp\Psr7;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
 {
     public function show_status(Request $request, string $status_id)
     {
-        // The user has a session and may be here to favourite/unfavourite
-        // a status.
-        if (session()->has('user') && $request->has('action'))
+        if (session()->has('status'))
         {
-            $user = session('user');
-            if ($request->action === 'favourite')
-            {
-                $status = Mastodon::domain(env('MASTODON_DOMAIN'))
-                    ->token($user->token)
-                    ->post('/statuses/' . $status_id . '/favourite');
-            }
-            elseif ($request->action === 'unfavourite')
-            {
-                $status = Mastodon::domain(env('MASTODON_DOMAIN'))
-                    ->token($user->token)
-                    ->post('/statuses/' . $status_id . '/unfavourite');
-            }
-            elseif ($request->action === 'reblog')
-            {
-                $status = Mastodon::domain(env('MASTODON_DOMAIN'))
-                    ->token($user->token)
-                    ->post('/statuses/' . $status_id . '/reblog');
-            }
-            elseif ($request->action === 'unreblog')
-            {
-                $status = Mastodon::domain(env('MASTODON_DOMAIN'))
-                    ->token($user->token)
-                    ->post('/statuses/' . $status_id . '/unreblog');
-            }
+            // The user is coming here after peforming an action on a status,
+            // in which case we don't need to re-query it.
+
+            $status = session('status');
         }
-        
-        // If the status hasn't been returned from performing an action on it,
-        // we need to query for it.
-        if (!isset($session))
+        else
         {
+            // If the status hasn't been returned from performing an action,
+            // we need to query for it.
+
             $status = Mastodon::domain(env('MASTODON_DOMAIN'))
                 ->get('/statuses/' . $status_id);
         }
@@ -57,6 +33,92 @@ class StatusController extends Controller
         ];
 
         return view('show_status', $vars);
+    }
+
+    public function reblog_status(Request $request, string $status_id)
+    {
+        $user = session('user');
+
+        $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+            ->token($user->token)
+            ->post('/statuses/' . $status_id . '/reblog');
+
+        return redirect()->route('status', ['status_id' => $status_id])
+            ->with('status', $status);
+    }
+
+    public function unreblog_status(Request $request, string $status_id)
+    {
+        $user = session('user');
+
+        $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+            ->token($user->token)
+            ->post('/statuses/' . $status_id . '/unreblog');
+
+        return redirect()->route('status', ['status_id' => $status_id])
+            ->with('status', $status);
+    }
+
+    public function favourite_status(Request $request, string $status_id)
+    {
+        $user = session('user');
+
+        $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+            ->token($user->token)
+            ->post('/statuses/' . $status_id . '/favourite');
+
+        return redirect()->route('status', ['status_id' => $status_id])
+            ->with('status', $status);
+    }
+
+    public function unfavourite_status(Request $request, string $status_id)
+    {
+        $user = session('user');
+
+        $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+            ->token($user->token)
+            ->post('/statuses/' . $status_id . '/unfavourite');
+
+        return redirect()->route('status', ['status_id' => $status_id])
+            ->with('status', $status);
+    }
+
+    public function post_status(Request $request)
+    {
+        $user = session('user');
+
+        # Verify we have an actual status to post.
+        if (!$request->has('status'))
+        {
+            abort(400);
+        }
+
+        $params = [
+            'status' => $request->status
+        ];
+
+        $inputs = [
+            'in_reply_to_id',
+            'media_ids',
+            'sensitive',
+            'spoiler_text',
+            'visibility',
+            'language'
+        ];
+
+        foreach ($inputs as $input)
+        {
+            if ($request->has($input))
+            {
+                $params[$input] = $request->input($input);
+            }
+        }
+
+        $new_status = Mastodon::domain(env('MASTODON_DOMAIN'))
+            ->token($user->token)
+            ->post('/statuses', $params);
+
+        return redirect()->route('home');
     }
 
     public function context(Request $request, string $status_id)

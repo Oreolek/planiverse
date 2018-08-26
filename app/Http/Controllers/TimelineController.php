@@ -44,42 +44,4 @@ class TimelineController extends Controller
 
         return view('home_timeline', $vars);
     }
-
-    public function post_status(Request $request)
-    {
-        $user = session('user');
-
-        # Verify we have an actual status to post.
-        if (!$request->has('status'))
-        {
-            abort(400);
-        }
-
-        $params = [
-            'status' => $request->status
-        ];
-
-        $inputs = [
-            'in_reply_to_id',
-            'media_ids',
-            'sensitive',
-            'spoiler_text',
-            'visibility',
-            'language'
-        ];
-
-        foreach ($inputs as $input)
-        {
-            if ($request->has($input))
-            {
-                $params[$input] = $request->input($input);
-            }
-        }
-
-        $new_status = Mastodon::domain(env('MASTODON_DOMAIN'))
-            ->token($user->token)
-            ->post('/statuses', $params);
-
-        return redirect()->route('home');
-    }
 }
