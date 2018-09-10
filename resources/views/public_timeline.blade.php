@@ -7,7 +7,7 @@
 
         <title>{{ $mastodon_domain }} | Public Timeline</title>
 
-        <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="stylesheet" href="{{ url('css/styles.css') }}" />
     </head>
     <body>
         <h1>{{ $mastodon_domain }} | Public Timeline</h1>

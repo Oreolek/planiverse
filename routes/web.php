@@ -33,20 +33,26 @@ Route::get('/status/{status_id}', 'StatusController@show_status')
     ->name('status');
 
 Route::get('/status/{status_id}/reblog', 'StatusController@reblog_status')
+    ->name('reblog')
     ->middleware('authorize');
 
 Route::get('/status/{status_id}/unreblog', 'StatusController@unreblog_status')
+    ->name('unreblog')
     ->middleware('authorize');
 
 Route::get('/status/{status_id}/favourite', 'StatusController@favourite_status')
+    ->name('favourite')
     ->middleware('authorize');
 
 Route::get('/status/{status_id}/unfavourite', 'StatusController@unfavourite_status')
+    ->name('unfavourite')
     ->middleware('authorize');
 
-Route::get('/status/{status_id}/thread', 'StatusController@context');
+Route::get('/status/{status_id}/thread', 'StatusController@context')
+    ->name('thread');
 
 Route::post('/status', 'StatusController@post_status')
+    ->name('post_status')
     ->middleware('authorize');
 
 Route::get('/notifications', 'NotificationsController@get_notifications')

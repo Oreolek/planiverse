@@ -7,7 +7,7 @@
 
         <title>{{ $mastodon_domain }} | Status</title>
 
-        <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="stylesheet" href="{{ url('css/styles.css') }}" />
     </head>
     <body>
         <h1>{{ $mastodon_domain }} | Status</h1>
@@ -19,7 +19,7 @@
         @endcomponent
 
         @if ($logged_in)
-            <form method="post" action="/status">
+            <form method="post" action="{{ route('post_status') }}">
                 <input
                     type="text"
                     name="spoiler_text"
