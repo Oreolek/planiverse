@@ -18,7 +18,12 @@ class LoginController extends Controller
         {
             # Register this app with the API server.
             $app_info = Mastodon::domain(env('MASTODON_DOMAIN'))
-                ->createApp(env('APP_NAME'), env('MASTODON_REDIRECT'), config('services.mastodon.scopes'), env('APP_URL'));
+                ->createApp(
+                    env('APP_NAME'),
+                    env('MASTODON_REDIRECT'),
+                    implode(' ', config('services.mastodon.scopes')),
+                    env('APP_URL')
+                );
 
             $client_id = $app_info['client_id'];
             $client_secret = $app_info['client_secret'];
