@@ -15,7 +15,7 @@
         @component('navigation')
         @endcomponent
 
-        <form method="post" action="/timeline/home">
+        <form method="post" action="{{ route('post_status') }}">
             <input type="text" name="spoiler_text" placeholder="Spoiler/Warning" />
             <textarea rows="4" name="status" placeholder="Status" required autofocus></textarea>
             <input type="submit" value="Post" />
