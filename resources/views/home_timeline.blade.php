@@ -18,6 +18,12 @@
         <form method="post" action="{{ route('post_status') }}">
             <input type="text" name="spoiler_text" placeholder="Spoiler/Warning" />
             <textarea rows="4" name="status" placeholder="Status" required autofocus></textarea>
+            <select name="visibility">
+                <option value="public">Public</option>
+                <option value="unlisted">Unlisted</option>
+                <option value="private">Private</option>
+                <option value="direct">Direct</option>
+            </select>
             <input type="submit" value="Post" />
             {{ csrf_field() }}
         </form>
