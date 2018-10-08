@@ -7,7 +7,9 @@
     @endcomponent
 
     @if ($notification['status'] ?? null !== null)
-        @component('status', ['status' => $notification['status']])
-        @endcomponent
+        <ul>
+            @component('status', ['status' => $notification['status']])
+            @endcomponent
+        </ul>
     @endif
 </article></li>
