@@ -15,8 +15,10 @@
         @component('navigation')
         @endcomponent
 
-        @component('status', ['status' => $status])
-        @endcomponent
+        <ul>
+            @component('status', ['status' => $status])
+            @endcomponent
+        </ul>
 
         @if ($logged_in)
             <form method="post" action="{{ route('post_status') }}">
