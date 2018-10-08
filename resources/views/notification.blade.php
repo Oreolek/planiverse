@@ -2,7 +2,8 @@
     @component('event_info', [
         'account' => $notification['account'],
         'created_at' => $notification['created_at'],
-        'type' => $notification['type']
+        'type' => $notification['type'],
+        'visibility' => null
     ])
     @endcomponent
 
