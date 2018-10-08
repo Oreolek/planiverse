@@ -22,8 +22,21 @@ class StatusController extends Controller
             // If the status hasn't been returned from performing an action,
             // we need to query for it.
 
-            $status = Mastodon::domain(env('MASTODON_DOMAIN'))
-                ->get('/statuses/' . $status_id);
+            if (session()->has('user'))
+            {
+                // If the user is logged in, send the token to ensure they
+                // can see private and direct statuses. Otherwise the API
+                // returns a 404.
+
+                $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+                    ->token(session('user')->token)
+                    ->get('/statuses/' . $status_id);
+            }
+            else
+            {
+                $status = Mastodon::domain(env('MASTODON_DOMAIN'))
+                    ->get('/statuses/' . $status_id);
+            }
         }
 
         $vars = [
