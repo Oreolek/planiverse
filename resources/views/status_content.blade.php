@@ -12,7 +12,11 @@
                 >
                     <img
                         src="{{ $attachment['preview_url'] }}"
-                        alt="{{ $attachment['description'] }}"
+                        alt="{{ 
+                            $attachment['description'] === null
+                                ? $attachment['url']
+                                : $attachment['description'] 
+                        }}"
                     />
                 </a>
             </figure>
