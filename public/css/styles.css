@@ -71,7 +71,7 @@ div.actions span.reblogged a {
     color: green;
 }
 
-time, span.event-action {
+time, span.event-indicators {
     font-size: smaller;
     margin-left: 1em;
 }

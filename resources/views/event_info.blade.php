@@ -10,21 +10,37 @@
         </a>
     </span>
 
-    @if ($type !== null)
-        <span class="event-action">
-            @if ($type === 'mention')
-                mentioned
-            @elseif ($type === 'reblog')
-                reblogged
-            @elseif ($type === 'favourite')
-                favourited
-            @elseif ($type === 'follow')
-                followed you.
-            @elseif ($type === 'reply')
-                &#8624;
-            @endif
-        </span>
-    @endif
+    <span class="event-indicators">
+        @if ($visibility !== null)
+            <span class="visibility">
+                @if ($visibility === 'public')
+                    <span title="public">&#9675;</span>
+                @elseif ($visibility === 'unlisted')
+                    <span title="unlisted">&#9676;</span>
+                @elseif ($visibility === 'private')
+                    <span title="private">&#128274;</span>
+                @elseif ($visibility === 'direct')
+                    <span title="direct">&#9993;</span>
+                @endif
+            </span>
+        @endif
+
+        @if ($type !== null)
+            <span class="event-action">
+                @if ($type === 'mention')
+                    mentioned
+                @elseif ($type === 'reblog')
+                    reblogged
+                @elseif ($type === 'favourite')
+                    favourited
+                @elseif ($type === 'follow')
+                    followed you.
+                @elseif ($type === 'reply')
+                    &#8624;
+                @endif
+            </span>
+        @endif
+    </span>
 
     <time datetime="{{ $created_at }}">
         @php

@@ -2,7 +2,8 @@
     @component('event_info', [
         'account' => $status['account'],
         'created_at' => $status['created_at'],
-        'type' => $status['in_reply_to_id'] === null ? null : 'reply'
+        'type' => $status['in_reply_to_id'] === null ? null : 'reply',
+        'visibility' => $status['visibility']
     ])
     @endcomponent
 
