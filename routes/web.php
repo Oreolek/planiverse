@@ -59,6 +59,10 @@ Route::get('/notifications', 'NotificationsController@get_notifications')
     ->name('notifications')
     ->middleware('authorize');
 
+Route::get('/account/{account_id}', 'AccountController@view_account')
+    ->name('account')
+    ->middleware('authorize');
+
 Route::get('/login', 'LoginController@login')
     ->name('login');
 

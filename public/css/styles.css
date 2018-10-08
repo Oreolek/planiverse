@@ -50,7 +50,7 @@ article figure img, article video {
     max-width: 100%;
 }
 
-article img.avatar {
+img.avatar {
     max-width: 48px;
 }
 

@@ -1,6 +1,6 @@
 <aside>
     <span class="account" title="{{ $account['acct'] }}">
-        <a href="{{ $account['url'] }}">
+        <a href="{{ route('account', ['account_id' => $account['id']]) }}">
             <img
                 src="{{ $account['avatar'] }}"
                 alt="{{ $account['acct'] }}"
