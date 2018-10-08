@@ -29,6 +29,17 @@
                 </a>
             </span>
             {!! $account['note'] !!}
+            <div>
+                @if ($relationship['following'])
+                    <a href="{{ route('unfollow', ['account_id' => $account['id']]) }}">
+                        Unfollow
+                    </a>
+                @else
+                    <a href="{{ route('follow', ['account_id' => $account['id']]) }}">
+                        Follow
+                    </a>
+                @endif
+            </div>
         </div>
     </body>
 </html>

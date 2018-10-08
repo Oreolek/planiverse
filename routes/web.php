@@ -63,6 +63,14 @@ Route::get('/account/{account_id}', 'AccountController@view_account')
     ->name('account')
     ->middleware('authorize');
 
+Route::get('/account/{account_id}/follow', 'AccountController@follow_account')
+    ->name('follow')
+    ->middleware('authorize');
+
+Route::get('/account/{account_id}/unfollow', 'AccountController@unfollow_account')
+    ->name('unfollow')
+    ->middleware('authorize');
+
 Route::get('/login', 'LoginController@login')
     ->name('login');
 
