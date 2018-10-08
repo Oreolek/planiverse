@@ -7,17 +7,19 @@
     ])
     @endcomponent
 
-    @if ($status['spoiler_text'] !== '')
-        <details>
-            <summary>{{ $status['spoiler_text'] }}</summary>
+    <div>
+        @if ($status['spoiler_text'] !== '')
+            <details>
+                <summary>{{ $status['spoiler_text'] }}</summary>
 
+                @component('status_content', ['status' => $status])
+                @endcomponent
+            </details>
+        @else
             @component('status_content', ['status' => $status])
             @endcomponent
-        </details>
-    @else
-        @component('status_content', ['status' => $status])
-        @endcomponent
-    @endif
+        @endif
+    </div>
 
     <div class="actions">
         <!-- Context -->
