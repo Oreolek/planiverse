@@ -15,17 +15,19 @@
         @component('navigation')
         @endcomponent
 
-        @foreach ($context['ancestors'] as $ancestor)
-            @component('status', ['status' => $ancestor])
-            @endcomponent
-        @endforeach
+        <ul>
+            @foreach ($context['ancestors'] as $ancestor)
+                @component('status', ['status' => $ancestor])
+                @endcomponent
+            @endforeach
 
-        @component('status', ['status' => $status])
-        @endcomponent
-
-        @foreach ($context['descendants'] as $descendant)
-            @component('status', ['status' => $descendant])
+            @component('status', ['status' => $status])
             @endcomponent
-        @endforeach
+
+            @foreach ($context['descendants'] as $descendant)
+                @component('status', ['status' => $descendant])
+                @endcomponent
+            @endforeach
+        </ul>
     </body>
 </html>

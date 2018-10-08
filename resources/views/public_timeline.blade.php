@@ -15,10 +15,12 @@
         @component('navigation')
         @endcomponent
 
-        @foreach ($statuses as $status)
-            @component('status', ['status' => $status])
-            @endcomponent
-        @endforeach
+        <ul>
+            @foreach ($statuses as $status)
+                @component('status', ['status' => $status])
+                @endcomponent
+            @endforeach
+        </ul>
 
         @component('pagination', ['links' => $links])
         @endcomponent

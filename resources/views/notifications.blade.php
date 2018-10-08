@@ -15,10 +15,12 @@
         @component('navigation')
         @endcomponent
 
-        @foreach ($notifications as $notification)
-            @component('notification', ['notification' => $notification])
-            @endcomponent
-        @endforeach
+        <ul>
+            @foreach ($notifications as $notification)
+                @component('notification', ['notification' => $notification])
+                @endcomponent
+            @endforeach
+        </ul>
 
         @component('pagination', ['links' => $links])
         @endcomponent

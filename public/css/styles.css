@@ -82,18 +82,17 @@ input, textarea {
     width: 100%;
 }
 
+ul {
+    list-style: none;
+    padding: 0;
+}
+
 nav ul {
     display: flex;
     justify-content: space-between;
-    list-style: none;
-    padding: 0;
 }
 
 nav ul li {
     display: inline;
     margin-top: 0;
-}
-
-hr {
-    display: none;
 }

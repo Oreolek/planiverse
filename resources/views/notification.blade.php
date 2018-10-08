@@ -1,4 +1,4 @@
-<article>
+<li><article>
     @component('event_info', [
         'account' => $notification['account'],
         'created_at' => $notification['created_at'],
@@ -10,4 +10,4 @@
         @component('status', ['status' => $notification['status']])
         @endcomponent
     @endif
-</article>
+</article></li>

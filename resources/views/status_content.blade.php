@@ -28,6 +28,8 @@
         @endif
     @endforeach
 @else
-    @component('status', ['status' => $status['reblog']])
-    @endcomponent
+    <ul>
+        @component('status', ['status' => $status['reblog']])
+        @endcomponent
+    </ul>
 @endif

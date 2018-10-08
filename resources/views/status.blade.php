@@ -1,5 +1,4 @@
-<hr />
-<article>
+<li><article>
     @component('event_info', [
         'account' => $status['account'],
         'created_at' => $status['created_at'],
@@ -54,5 +53,4 @@
             {{ $status['favourites_count'] }}
         </span>
     </div>
-</article>
-<hr />
+</article></li>
