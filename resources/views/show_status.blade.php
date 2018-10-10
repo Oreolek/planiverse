@@ -28,7 +28,7 @@
                     placeholder="Spoiler/Warning"
                     value="{{ $status['spoiler_text'] }}"
                 />
-                <textarea rows="4" name="status" placeholder="Reply" required autofocus>{{ '@' . $status['account']['acct'] }} @foreach ($status['mentions'] as $mention){{ '@' . $mention['acct'] }} @endforeach</textarea>
+                <textarea rows="4" name="status" placeholder="Reply" required autofocus>{{ $reply_mentions }} </textarea>
                 <select name="visibility">
                     <option value="public" @if ($status['visibility'] === 'public') selected @endif>Public</option>
                     <option value="unlisted" @if ($status['visibility'] === 'unlisted') selected @endif>Unlisted</option>

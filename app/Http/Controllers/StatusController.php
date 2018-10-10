@@ -39,10 +39,31 @@ class StatusController extends Controller
             }
         }
 
+        // Compile a list of accounts to include in the reply.
+        $reply_mentions = [];
+        if (session()->has('user'))
+        {
+            // Include the original poster, if not the current user.
+            if ($status['account']['acct'] !== session('user')->user['acct'])
+            {
+                array_push($reply_mentions, '@' . $status['account']['acct']);
+            }
+
+            // Include all mentions, excluding the current user.
+            foreach ($status['mentions'] as $mention)
+            {
+                if ($mention['acct'] !== session('user')->user['acct'])
+                {
+                    array_push($reply_mentions, '@' . $mention['acct']);
+                }
+            }
+        }
+
         $vars = [
             'status' => $status,
             'mastodon_domain' => explode('//', env('MASTODON_DOMAIN'))[1],
-            'logged_in' => session()->has('user')
+            'logged_in' => session()->has('user'),
+            'reply_mentions' => implode(' ', $reply_mentions)
         ];
 
         return view('show_status', $vars);
