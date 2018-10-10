@@ -67,4 +67,43 @@ class AccountController extends Controller
         return redirect()->route('account', ['account_id' => $account_id])
             ->with('relationship', $relationship);
     }
+
+    public function show_search()
+    {
+        if (session()->has('accounts'))
+        {
+            // The user is coming here after peforming a search.
+
+            $accounts = session('accounts');
+        }
+        else
+        {
+        	$accounts = [];
+        }
+
+        $vars = [
+        	'accounts' => $accounts,
+            'mastodon_domain' => explode('//', env('MASTODON_DOMAIN'))[1]
+        ];
+
+        return view('search_accounts', $vars);
+    }
+
+    public function search(Request $request)
+    {
+        $user = session('user');
+
+        # Verify we have an actual account to search for.
+        if (!$request->has('account'))
+        {
+            abort(400);
+        }
+
+        $accounts = Mastodon::domain(env('MASTODON_DOMAIN'))
+            ->token($user->token)
+            ->get('/accounts/search', ['q' => $request->account]);
+
+        return redirect()->route('show_search_accounts')
+            ->with('accounts', $accounts);
+    }
 }
