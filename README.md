@@ -22,6 +22,8 @@ Currently implemented features are:
 
 * posting, favouriting, reblogging, and replying to statuses
 
+* spoiler/content warnings
+
 * viewing status threads
 
 * status visibility
