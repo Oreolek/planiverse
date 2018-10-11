@@ -39,7 +39,7 @@ class Links
                         || strpos($query_param, 'since_id=') === 0)
                     {
                         # Construct new links with the correct offset.
-                        $this->$link['rel'] = route($route) . '?' . $query_param;
+                        $this->{$link['rel']} = route($route) . '?' . $query_param;
                     }
                 }
             }
