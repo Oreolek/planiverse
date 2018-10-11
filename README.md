@@ -30,6 +30,10 @@ Currently implemented features are:
 
 * viewing notifications
 
+* viewing image and video attachments
+
+* optional timestamps in Swatch Internet time (beats)
+
 Features still to be implemented include:
 
 * searching accounts
@@ -37,6 +41,8 @@ Features still to be implemented include:
 * deleting statuses
 
 * muting/blocking accounts
+
+* uploading attachments
 
 ## Screenshots
 
