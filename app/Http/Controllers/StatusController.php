@@ -6,27 +6,39 @@ use App\Http\Controllers\Controller;
 use Mastodon;
 use Illuminate\Http\Request;
 
+/**
+ * Controller for managing Statuses.
+ */
 class StatusController extends Controller
 {
-    public function show_status(Request $request, string $status_id)
+    /**
+     * Show a Status.
+     *
+     * Conditionally shows a reply form if the user is logged in.
+     *
+     * @param string $status_id The ID of the Status to display.
+     *
+     * @return Illuminate\View\View The Status view page.
+     */
+    public function show_status(string $status_id)
     {
         if (session()->has('status'))
         {
-            // The user is coming here after peforming an action on a status,
-            // in which case we don't need to re-query it.
+            # The user is coming here after peforming an action on a status,
+            # in which case we don't need to re-query it.
 
             $status = session('status');
         }
         else
         {
-            // If the status hasn't been returned from performing an action,
-            // we need to query for it.
+            # If the status hasn't been returned from performing an action,
+            # we need to query for it.
 
             if (session()->has('user'))
             {
-                // If the user is logged in, send the token to ensure they
-                // can see private and direct statuses. Otherwise the API
-                // returns a 404.
+                # If the user is logged in, send the token to ensure they
+                # can see private and direct statuses. Otherwise the API
+                # returns a 404.
 
                 $status = Mastodon::domain(env('MASTODON_DOMAIN'))
                     ->token(session('user')->token)
@@ -39,17 +51,17 @@ class StatusController extends Controller
             }
         }
 
-        // Compile a list of accounts to include in the reply.
+        # Compile a list of accounts to include in the reply.
         $reply_mentions = [];
         if (session()->has('user'))
         {
-            // Include the original poster, if not the current user.
+            # Include the original poster, if not the current user.
             if ($status['account']['acct'] !== session('user')->user['acct'])
             {
                 array_push($reply_mentions, '@' . $status['account']['acct']);
             }
 
-            // Include all mentions, excluding the current user.
+            # Include all mentions, excluding the current user.
             foreach ($status['mentions'] as $mention)
             {
                 if ($mention['acct'] !== session('user')->user['acct'])
@@ -69,10 +81,18 @@ class StatusController extends Controller
         return view('show_status', $vars);
     }
 
-    public function reblog_status(Request $request, string $status_id)
+    /**
+     * Reblog a Status.
+     *
+     * @param string $status_id The ID of the Status to reblog.
+     *
+     * @return Illuminate\Routing\Redirector Redirect to the Status view page.
+     */
+    public function reblog_status(string $status_id)
     {
         $user = session('user');
 
+        # Reblog request to the API.
         $status = Mastodon::domain(env('MASTODON_DOMAIN'))
             ->token($user->token)
             ->post('/statuses/' . $status_id . '/reblog');
@@ -81,10 +101,18 @@ class StatusController extends Controller
             ->with('status', $status);
     }
 
-    public function unreblog_status(Request $request, string $status_id)
+    /**
+     * Unreblog a Status.
+     *
+     * @param string $status_id The ID of the Status to unreblog.
+     *
+     * @return Illuminate\Routing\Redirector Redirect to the Status view page.
+     */
+    public function unreblog_status(string $status_id)
     {
         $user = session('user');
 
+        # Unreblog request to the API.
         $status = Mastodon::domain(env('MASTODON_DOMAIN'))
             ->token($user->token)
             ->post('/statuses/' . $status_id . '/unreblog');
@@ -93,10 +121,18 @@ class StatusController extends Controller
             ->with('status', $status);
     }
 
-    public function favourite_status(Request $request, string $status_id)
+    /**
+     * Favourite a Status.
+     *
+     * @param string $status_id The ID of the Status to favourite.
+     *
+     * @return Illuminate\Routing\Redirector Redirect to the Status view page.
+     */
+    public function favourite_status(string $status_id)
     {
         $user = session('user');
 
+        # Favourite the Status.
         $status = Mastodon::domain(env('MASTODON_DOMAIN'))
             ->token($user->token)
             ->post('/statuses/' . $status_id . '/favourite');
@@ -105,10 +141,18 @@ class StatusController extends Controller
             ->with('status', $status);
     }
 
-    public function unfavourite_status(Request $request, string $status_id)
+    /**
+     * Unfavourite a Status.
+     *
+     * @param string $status_id The ID of the Status to unfavourite.
+     *
+     * @return Illuminate\Routing\Redirector Redirect to the Status view page.
+     */
+    public function unfavourite_status(string $status_id)
     {
         $user = session('user');
 
+        # Unfavourite request to the API.
         $status = Mastodon::domain(env('MASTODON_DOMAIN'))
             ->token($user->token)
             ->post('/statuses/' . $status_id . '/unfavourite');
@@ -117,6 +161,13 @@ class StatusController extends Controller
             ->with('status', $status);
     }
 
+    /**
+     * Post a new Status.
+     *
+     * @param Request $request Request containing the form submission.
+     *
+     * @return Illuminate\Routing\Redirector Redirect to the home timeline page.
+     */
     public function post_status(Request $request)
     {
         $user = session('user');
@@ -140,6 +191,8 @@ class StatusController extends Controller
             'language'
         ];
 
+        # Grab each of the optional inputs from the form.
+        # Not all of these are present in the HTML of the view yet.
         foreach ($inputs as $input)
         {
             if ($request->has($input))
@@ -148,6 +201,7 @@ class StatusController extends Controller
             }
         }
 
+        # Post the Status via the API.
         $new_status = Mastodon::domain(env('MASTODON_DOMAIN'))
             ->token($user->token)
             ->post('/statuses', $params);
@@ -155,11 +209,22 @@ class StatusController extends Controller
         return redirect()->route('home');
     }
 
-    public function context(Request $request, string $status_id)
+    /**
+     * Show the context of a Status.
+     *
+     * Show a Status in its thread of ancestors and descendants.
+     *
+     * @param string $status_id The ID of the Status to display.
+     *
+     * @return Illuminate\View\View The context view page.
+     */
+    public function context(string $status_id)
     {
+        # Get the Status itself.
         $status = Mastodon::domain(env('MASTODON_DOMAIN'))
             ->get('/statuses/' . $status_id);
 
+        # Get the context.
         $context = Mastodon::domain(env('MASTODON_DOMAIN'))
             ->get('/statuses/' . $status_id . '/context');
 

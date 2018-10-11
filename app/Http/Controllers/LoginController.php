@@ -7,12 +7,25 @@ use Mastodon;
 use Illuminate\Support\Facades\DB;
 use Socialite;
 
+/**
+ * Controller for login functions.
+ */
 class LoginController extends Controller
 {
+	/**
+	 * Direct the user to the Mastodon OAuth login page.
+	 *
+	 * First check to see if we are registered as an app with the Mastodon API,
+	 * then direct users to the OAuth login.
+	 *
+	 * @return Illuminate\Http\RedirectResponse Redirect to the OAuth login.
+	 */
     public function login()
     {
         # Check if this app is already registered.
-        $app = DB::table('apps')->where('server', env('MASTODON_DOMAIN'))->first();
+        $app = DB::table('apps')
+            ->where('server', env('MASTODON_DOMAIN'))
+            ->first();
 
         if ($app == null)
         {
@@ -28,6 +41,7 @@ class LoginController extends Controller
             $client_id = $app_info['client_id'];
             $client_secret = $app_info['client_secret'];
 
+            # Log the client details so we don't have to re-register.
             DB::table('apps')->insert([
                 'server' => env('MASTODON_DOMAIN'),
                 'client_name' => env('APP_NAME'),
@@ -59,6 +73,14 @@ class LoginController extends Controller
         return Socialite::driver('mastodon')->redirect();
     }
 
+    /**
+     * Process the logged-in user.
+     *
+     * After logging in remotely, the user will be redirected to this callback.
+     * We juggle their login details, then direct them to the home page.
+     *
+     * @return Illuminate\Routing\Redirector Redirect to the home page.
+     */
     public function callback()
     {
         $domain = session('mastodon_domain');
