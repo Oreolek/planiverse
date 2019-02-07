@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Mastodon;
 use Illuminate\Http\Request;
 
+use App\Helpers\Links;
+use App\Helpers\PaginationParameters;
+
 /**
  * Controller for Account functions.
  */
@@ -49,10 +52,20 @@ class AccountController extends Controller
             $relationship = $relationships[0];
         }
 
+        # Get the Account's Statuses from the API.
+        $statuses = Mastodon::domain(env('MASTODON_DOMAIN'))
+            ->token($user->token)
+            ->get('/accounts/' . $account_id . '/statuses');
+
         $vars = [
             'account' => $account,
             'mastodon_domain' => explode('//', env('MASTODON_DOMAIN'))[1],
-            'relationship' => $relationship
+            'relationship' => $relationship,
+            'statuses' => $statuses,
+            'links' => new Links(
+                Mastodon::getResponse()->getHeader('link'),
+                'public'
+                )
         ];
 
         return view('account', $vars);

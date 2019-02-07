@@ -39,7 +39,19 @@
                         Follow
                     </a>
                 @endif
-            </div>
+	    </div>
+
+            <h2>Statuses</h2>
+
+            <ul>
+                @foreach ($statuses as $status)
+                    @component('status', ['status' => $status])
+                    @endcomponent
+                @endforeach
+            </ul>
+
+            @component('pagination', ['links' => $links])
+            @endcomponent
         </div>
     </body>
 </html>
