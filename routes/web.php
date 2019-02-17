@@ -71,12 +71,12 @@ Route::get('/account/{account_id}/unfollow', 'AccountController@unfollow_account
     ->name('unfollow')
     ->middleware('authorize');
 
-Route::get('/accounts/search', 'AccountController@show_search')
-    ->name('show_search_accounts')
+Route::get('/search', 'SearchController@show_search')
+    ->name('show_search')
     ->middleware('authorize');
 
-Route::post('/accounts/search', 'AccountController@search')
-    ->name('search_accounts')
+Route::post('/search', 'SearchController@search')
+    ->name('search')
     ->middleware('authorize');
 
 Route::get('/login', 'LoginController@login')
