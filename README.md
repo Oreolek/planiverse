@@ -36,9 +36,9 @@ Currently implemented features are:
 
 * optional timestamps in Swatch Internet time (beats)
 
-Features still to be implemented include:
+* searching accounts and statuses
 
-* searching accounts
+Features still to be implemented include:
 
 * deleting statuses
 
