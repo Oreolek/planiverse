@@ -12,32 +12,6 @@ use Illuminate\Http\Request;
 class SearchController extends Controller
 {
     /**
-     * Show the page that lets users search across Accounts and Statuses.
-     *
-     * @return Illuminate\View\View The search page.
-     */
-    public function show_search()
-    {
-        if (session()->has('results'))
-        {
-            # The user is coming here after peforming a search.
-
-            $results = session('results');
-        }
-        else
-        {
-       	    $results = null;
-        }
-
-        $vars = [
-            'results' => $results,
-            'mastodon_domain' => explode('//', env('MASTODON_DOMAIN'))[1]
-        ];
-
-        return view('search', $vars);
-    }
-
-    /**
      * Process a search request.
      *
      * @param Request $request The POST request with search parameters.
@@ -49,17 +23,23 @@ class SearchController extends Controller
         $user = session('user');
 
         # Verify we have an actual search term.
-        if (!$request->has('search_term'))
+        if ($request->has('search_term'))
         {
-            abort(400);
+            # Query the search end-point.
+            $results = Mastodon::domain(env('MASTODON_DOMAIN'))
+                ->token($user->token)
+                ->get('/search', ['q' => $request->search_term]);
 	}
+        else
+        {
+            $results = null;
+        }
 
-        # Query the search end-point.
-        $results = Mastodon::domain(env('MASTODON_DOMAIN'))
-            ->token($user->token)
-            ->get('/search', ['q' => $request->search_term]);
+        $vars = [
+            'results' => $results,
+            'mastodon_domain' => explode('//', env('MASTODON_DOMAIN'))[1]
+        ];
 
-        return redirect()->route('show_search')
-            ->with('results', $results);
+        return view('search', $vars);
     }
 }

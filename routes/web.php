@@ -71,11 +71,7 @@ Route::get('/account/{account_id}/unfollow', 'AccountController@unfollow_account
     ->name('unfollow')
     ->middleware('authorize');
 
-Route::get('/search', 'SearchController@show_search')
-    ->name('show_search')
-    ->middleware('authorize');
-
-Route::post('/search', 'SearchController@search')
+Route::match(['get', 'post'], '/search', 'SearchController@search')
     ->name('search')
     ->middleware('authorize');
 
