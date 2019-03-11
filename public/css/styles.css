@@ -1,36 +1,31 @@
-* {
-    font-family: inherit;
-    line-height: inherit;
-    color: inherit;
-    margin: 0;
-}
-
-* + * {
-    margin-top: 1.5em;
+html {
+    background-color: #eee;
+    font-family: "PT Serif", "Adobe Caslon Pro", "Hoefler Text", Garamond, "EB Garamond", Times, "Times New Roman", serif;
+    font-feature-settings: "liga" on, "zero" on, "lnum" off, "onum" on, "kern" on, "ordn" on;
+    font-kerning: normal;
+    font-variant-ligatures: common-ligatures;
+    font-variant-numeric: oldstyle-nums ordinal slashed-zero;
+    font-size: 1rem;
+    line-height: 1.618em;
+    text-rendering: optimizeLegibility;
 }
 
 body, br, dt, dd, th, td, option {
     margin-top: 0;
 }
 
-html {
-    background-color: lightgray;
-    font-family: "Adobe Caslon Pro", "Hoefler Text", Garamond, Times, "Times New Roman", serif;
-    font-feature-settings: "liga" on, "zero" on, "lnum" off, "onum" on, "kern" on, "ordn" on;
-    font-kerning: normal;
-    font-variant-ligatures: common-ligatures;
-    font-variant-numeric: oldstyle-nums ordinal slashed-zero;
-    font-size: 20px;
-    line-height: 1.4em;
-    text-rendering: optimizeLegibility;
-}
-
 body {
     margin-left: auto;
     margin-right: auto;
-    padding-top: 2em;
-    padding-bottom: 2em;
-    max-width: 40em;
+    padding-top: 1.618em;
+    padding-bottom: 1.618em;
+    max-width: 43rem;
+}
+
+article {
+    margin-top: 1.5em;
+    border: 1px solid black;
+    padding: 1em;
 }
 
 a:link {
@@ -41,13 +36,11 @@ a:visited {
     color: #de3d83;
 }
 
-article {
-    border: 1px solid black;
-    padding: 1em;
-}
-
-article figure img, article video {
+article figure img,
+article video {
     max-width: 100%;
+    height: auto;
+    border-style: none;
 }
 
 img.avatar {
