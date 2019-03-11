@@ -1,4 +1,10 @@
-<li><article>
+<li><article class="
+    @is_reblogged($status) reblogged @endis_reblogged
+    @is_reblog($status) reblog @endis_reblog
+    @is_favourited($status) favourited @endis_favourited
+    @is_muted($status) muted @endis_muted
+    @has_spoiler($status) has_spoiler @endhas_spoiler
+">
     @component('event_info', [
         'account' => $status['account'],
         'created_at' => $status['created_at'],
@@ -8,7 +14,7 @@
     @endcomponent
 
     <div>
-        @if ($status['spoiler_text'] !== '')
+        @has_spoiler($status)
             <details>
                 <summary>{{ $status['spoiler_text'] }}</summary>
 
@@ -18,7 +24,7 @@
         @else
             @component('status_content', ['status' => $status])
             @endcomponent
-        @endif
+        @endhas_spoiler
     </div>
 
     <div class="actions">
@@ -34,25 +40,25 @@
 
         <!-- Reblog -->
         <span title="Reblog">
-            @if (isset($status['reblogged']) && $status['reblogged'])
+            @is_reblogged($status)
                 <span class="reblogged">
                     <a href="{{ route('unreblog', ['status_id' => $status['id']]) }}">&#8634;</a>
                 </span>
             @else
                 <a href="{{ route('reblog', ['status_id' => $status['id']]) }}">&#8634;</a>
-            @endif
+            @endis_reblogged
             {{ $status['reblogs_count'] }}
         </span>
 
         <!-- Favourite -->
         <span title="Favourite">
-            @if (isset($status['favourited']) && $status['favourited'])
+            @is_favourited($status)
                 <span class="favourited">
                     <a href="{{ route('unfavourite', ['status_id' => $status['id']]) }}">&#9733;</a>
                 </span>
             @else
                 <a href="{{ route('favourite', ['status_id' => $status['id']]) }}">&#9734;</a>
-            @endif
+            @endis_favourited
             {{ $status['favourites_count'] }}
         </span>
     </div>
