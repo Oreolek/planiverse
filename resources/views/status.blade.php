@@ -34,7 +34,7 @@
 
         <!-- Reblog -->
         <span title="Reblog">
-            @if ($status['reblogged'])
+            @if (isset($status['reblogged']) && $status['reblogged'])
                 <span class="reblogged">
                     <a href="{{ route('unreblog', ['status_id' => $status['id']]) }}">&#8634;</a>
                 </span>
@@ -46,7 +46,7 @@
 
         <!-- Favourite -->
         <span title="Favourite">
-            @if ($status['favourited'])
+            @if (isset($status['favourited']) && $status['favourited'])
                 <span class="favourited">
                     <a href="{{ route('unfavourite', ['status_id' => $status['id']]) }}">&#9733;</a>
                 </span>
