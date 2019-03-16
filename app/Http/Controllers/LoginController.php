@@ -12,14 +12,14 @@ use Socialite;
  */
 class LoginController extends Controller
 {
-	/**
-	 * Direct the user to the Mastodon OAuth login page.
-	 *
-	 * First check to see if we are registered as an app with the Mastodon API,
-	 * then direct users to the OAuth login.
-	 *
-	 * @return Illuminate\Http\RedirectResponse Redirect to the OAuth login.
-	 */
+    /**
+     * Direct the user to the Mastodon OAuth login page.
+     *
+     * First check to see if we are registered as an app with the Mastodon API,
+     * then direct users to the OAuth login.
+     *
+     * @return Illuminate\Http\RedirectResponse Redirect to the OAuth login.
+     */
     public function login()
     {
         # Check if this app is already registered.
@@ -70,7 +70,9 @@ class LoginController extends Controller
         session(['client_secret' => $client_secret]);
 
         # Redirect the user to their instance to log in.
-        return Socialite::driver('mastodon')->redirect();
+	return Socialite::driver('mastodon')
+            ->setScopes(config('services.mastodon.scope', config('services.mastodon.scopes')))
+            ->redirect();
     }
 
     /**
